@@ -2,7 +2,7 @@
 
 Design tests for Analytics functionality on a Battery Monitoring System.
 
-Fill the parts marked '_enter' in the **Tasks** section below.
+Fill the parts marked 'enter' in the **Tasks** section below.
 
 ## Analysis-functionality to be tested
 
@@ -27,8 +27,9 @@ Notification must be sent when a new report is available.
 List the dependencies of the Analysis-functionality.
 
 1. Access to the Server containing the telemetrics in a csv file
-1. _enter dependency
-1. _enter dependency
+2. Access to the Server / Directory to store PDF report of Analysis
+3. Maximum and Minimum threshold limits to classify as breach
+4. Notification / Email Service to notify receiver when new report is available
 
 (add more if needed)
 
@@ -40,10 +41,10 @@ What is included in the software unit-test? What is not? Fill this table.
 |---------------------------|---------------|---
 Battery Data-accuracy       | No            | We do not test the accuracy of data
 Computation of maximum      | Yes           | This is part of the software being developed
-Off-the-shelf PDF converter | _enter Yes/No | _enter reasoning
-Counting the breaches       | _enter Yes/No | _enter reasoning
-Detecting trends            | _enter Yes/No | _enter reasoning
-Notification utility        | _enter Yes/No | _enter reasoning
+Off-the-shelf PDF converter | No            | External application not in scope
+Counting the breaches       | Yes           | This is part of the software being developed
+Detecting trends            | Yes           | This is part of the software being developed
+Notification utility        | No            | External application not in scope
 
 ### List the Test Cases
 
@@ -53,8 +54,14 @@ Add to these tests:
 
 1. Write minimum and maximum to the PDF from a csv containing positive and negative readings
 1. Write "Invalid input" to the PDF when the csv doesn't contain expected data
-1. _enter a test
-1. _enter a test
+1. Write "No Breaches" to PDF when there is no breach
+1. Write "Invalid File Format" when input file format is wrong
+1. Write "File not found" when input csv file is not found
+1. Write "No breaches found" when there is no breach in battery telemetry data
+1. Write "Increasing Breach Trend" when increasing continuously for 30 minutes
+1. Check "Total breaches Count"
+1. Check PDF generated or not and in weekly frequency
+1. Check notification sent after every PDF generated 
 
 (add more)
 
@@ -68,8 +75,8 @@ Enter one part that's real and another part that's faked/mocked.
 |--------------------------|--------------|-----------------------------|---
 Read input from server     | csv file     | internal data-structure     | Fake the server store
 Validate input             | csv data     | valid / invalid             | None - it's a pure function
-Notify report availability | _enter input | _enter output               | _enter fake or mock
-Report inaccessible server | _enter input | _enter output               | _enter fake or mock
-Find minimum and maximum   | _enter input | _enter output               | _enter fake or mock
-Detect trend               | _enter input | _enter output               | _enter fake or mock
-Write to PDF               | _enter input | _enter output               | _enter fake or mock
+Notify report availability | pdf file     | email sent/not sent         | Fake the notification
+Report inaccessible server | csv file     | no access / access denied   | Fake the call to server
+Find minimum and maximum   | csv data     | return min and max list     | None - it's a pure function
+Detect trend               | csv data     | normal/abnormal trend       | None - it's a pure function
+Write to PDF               | csv data     | PDF file                    | Fake the call to PDF Converter
